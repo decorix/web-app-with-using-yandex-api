@@ -1,0 +1,21 @@
+.k12 {
+    height: 500px;
+}
+
+html,
+body {
+    width: 100%;
+    height: 95%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+
+#map {
+    widht: 100%;
+    height: 90%;
+}
+
+.header {
+    padding: 5px;
+}
