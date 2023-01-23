@@ -43,7 +43,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                     ?>
                     </ul>
                     <form class="form-inline position-absolute my-3 top-0 end-0">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
               <a href="logOut.php" class="nav-link">Выход</a>
             </button>
                     </form>
@@ -54,6 +54,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
             <div class="row my-4">
                 <div class="col-12 text-center">
                     <h1>Поиск управляющих компаний</h1>
+                    <p id='pold'></p>
                 </div>
             </div>
             <div class="row my-5 border card">
@@ -79,20 +80,42 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
-                                <th scope="col">Название компании</th>
-                                <th scope="col">Количество домов в управлении</th>
-                                <th scope="col">Финальный рейтинг</th>
+                                <th scope="col" id="nameCompany">Название компании</th>
+                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="ratingComp">Рейтинг</th>
+                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
                             </tr>
                         </thead>
                         <tbody id="table_content">
-
-
+                            
                         </tbody>
 
                     </table>
                 </div>
 
             </div>
+
+            <!-- Модальное окно доп информации -->
+            <div class="modal fade" id="dopInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Дополнительная информация</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="#" method="#">
+                            <div class="modal-body" id="infoForBody">
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Модальное окно доп информации -->
+
             <footer class="py-3 my-4 border bg-dark">
                 <div class="container-fluid">
                     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -104,81 +127,26 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 </div>
             </footer>
 
-            <!-- Модальное окно авторизации -->
-            <div class="modal fade" id="auth" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Авторизация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="checkAuth.php" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="authLogin" class="form-label">Логин</label>
-                                    <input type="text" class="form-control mx-3" id="authLogin" name="authLogin" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="authPassword" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control mx-3" id="authPassword" name="authPassword" />
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Войти</button>
-                                <!-- $sql='INSERT INTO `company` (`name`, `type`, `address`) VALUES ('.$_POST['titleOrg'].', '.$_POST['typeObject'].', '.$_POST['address'].');';
-                            mysqli_query($mysql, $sql); -->
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Модальное окно авторизации -->
-
-            <!-- Модальное окно регистрации -->
-            <div class="modal fade" id="registr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Регистрация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="checkReg.php" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="regLogin" class="form-label">Логин</label>
-                                    <input type="text" class="form-control mx-3" id="regLogin" name="regLogin" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="regPassword" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control mx-3" id="regPassword" name="regPassword" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="regConfirmPassword" class="form-label">Подтверждение пароля</label>
-                                    <input type="password" class="form-control mx-3" id="regConfirmPassword" name="regConfirmPassword" />
-                                    <? if ($_SESSION['message']){
-                                        echo '<p>' .$_SESSION['message']. '</p>';
-                                    }
-                                    unset($_SESSION['message']);
-                                    ?>
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-                                <!-- $sql='INSERT INTO `company` (`name`, `type`, `address`) VALUES ('.$_POST['titleOrg'].', '.$_POST['typeObject'].', '.$_POST['address'].');';
-                            mysqli_query($mysql, $sql); -->
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Модальное окно регистрации -->
-
+            
+            
+            <script>
+                function getIdTr(){
+                    $('#table_content tr').click(function (event) {
+                    var id = $(this).attr('id');
+                    // var a = document.getElementById("pold");
+                    // a.innerHTML = id;
+                    $.post('/modal.php', {
+                        text: id
+                    }, function(html) {
+                        // $('#data_text').text('True: ' + data);
+                        document.getElementById("infoForBody").innerHTML = html;
+                        // $('#table_content > tbody').append(html);
+                    });
+                    });
+                   
+                    
+                }
+            </script>
 
             <script>
                 function data(title) {

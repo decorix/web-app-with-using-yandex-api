@@ -40,3 +40,45 @@ body {
 .table-earnings {
     background: #f3f5f6;
 }
+
+
+/* tr {
+    height: ;
+}
+
+#nameCompany {
+    width: 50%;
+    border: 1px solid black;
+}
+
+#ratingCompany {
+    width: 20%;
+    border: 1px solid black;
+}
+
+#dopFunction1 {
+    width: 13%;
+    border: 1px solid black;
+}
+
+
+
+#dopFunction2 {
+    width: 4%;
+    border: 1px solid black;
+} */
+
+#nameCompany {
+    width: 45%;
+    border: 1px solid black;
+}
+
+#point100 {
+    width: 17%;
+    border: 1px solid black;
+}
+
+#ratingComp {
+    width: 17%;
+    border: 1px solid black;
+}

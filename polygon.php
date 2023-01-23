@@ -79,9 +79,13 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
-                                <th scope="col">Название компании</th>
+                                <th scope="col" id="nameCompany">Название компании</th>
+                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="ratingComp">Рейтинг</th>
+                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <!-- <th scope="col">Адрес</th>
                                 <th scope="col">Количество домов в управлении</th>
-                                <th scope="col">Финальный рейтинг</th>
+                                <th scope="col">Финальный рейтинг</th> -->
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -103,6 +107,27 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                     <p class="text-center text-light">@ by Evgeny Polyakov, 2023</p>
                 </div>
             </footer>
+
+            <!-- Модальное окно доп информации -->
+            <div class="modal fade" id="dopInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Дополнительная информация</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="#" method="#">
+                            <div class="modal-body" id="infoForBody">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Модальное окно доп информации -->
 
             <!-- Модальное окно авторизации -->
             <div class="modal fade" id="auth" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -128,8 +153,6 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                                 <button type="submit" class="btn btn-primary">Войти</button>
-                                <!-- $sql='INSERT INTO `company` (`name`, `type`, `address`) VALUES ('.$_POST['titleOrg'].', '.$_POST['typeObject'].', '.$_POST['address'].');';
-                            mysqli_query($mysql, $sql); -->
                             </div>
                         </form>
                     </div>
@@ -179,6 +202,24 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
             </div>
             <!-- Модальное окно регистрации -->
 
+            <script>
+                function getIdTr() {
+                    $('#table_content tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        // var a = document.getElementById("pold");
+                        // a.innerHTML = id;
+                        $.post('/modal.php', {
+                            text: id
+                        }, function(html) {
+                            // $('#data_text').text('True: ' + data);
+                            document.getElementById("infoForBody").innerHTML = html;
+                            // $('#table_content > tbody').append(html);
+                        });
+                    });
+
+
+                }
+            </script>
 
             <script>
                 function data(title) {
