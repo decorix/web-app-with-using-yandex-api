@@ -19,3 +19,24 @@ body {
 .header {
     padding: 5px;
 }
+
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+body {
+    background-color: rgb(247, 247, 247);
+}
+
+.table-wrapper {
+    max-height: 400px;
+    overflow: auto;
+    display: inline-block;
+}
+
+.table-earnings {
+    background: #f3f5f6;
+}

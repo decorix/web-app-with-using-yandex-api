@@ -97,9 +97,9 @@ ymaps.ready(function() {
 });
 
 function text_out(title) {
-    // var a = document.getElementById("text_title");
-    // a.innerHTML = title;
-    document.getElementById("text_title").value = title;
+    var a = document.getElementById("text_title");
+    a.innerHTML = title;
+    // document.getElementById("text_title").value = title;
     data(title);
 }
 
