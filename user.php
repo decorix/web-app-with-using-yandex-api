@@ -32,27 +32,44 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 <a class="navbar-brand" href="user.php">
                     <img src="img/logo.png" alt="logo" width="60px" height="40px" />
                 </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse border d-flex" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="polygon.html">Главная</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#titleMap">Карта</a>
                         </li>
-                        <? if ($_SESSION['user']){
-                    echo '<li class="nav-item"> <a class="nav-link active text-light" aria-current="page" href="#">' .$_SESSION['user']['status']. '</a></li>';
+                        <li class="nav-item">
+                            <a class="nav-link  text-light" aria-current="page" href="#information">Информация</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-light" aria-current="page" href="#features">Избранное</a>
+                        </li>
+                        <!-- <? if ($_SESSION['user']){
+                    echo '<li class="nav-item"> <a class="nav-link  text-light border" aria-current="page" href="#">' .$_SESSION['user']['login']. '</a></li>';
                     }
-                    ?>
+                    ?> -->
                     </ul>
-                    <form class="form-inline position-absolute my-3 top-0 end-0">
+                    <div class="border text-light  justify-content-end" id="log">
+                        <? if ($_SESSION['user']){
+                            echo '<a class="nav-link  text-light border" aria-current="page" href="#">' .$_SESSION['user']['login']. '</a>';
+                            }
+                        ?>
+                    </div>
+                    <div class="border text-light " id="exit">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <a href="logOut.php" class="nav-link">Выход</a>
+                          </button>
+                    </div>
+                    <!-- <form class="form-inline position-absolute my-3 top-0 end-0" id="exit">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
               <a href="logOut.php" class="nav-link">Выход</a>
             </button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </nav>
         <div class="container">
             <div class="row my-4">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center" id="titleMap">
                     <h1>Поиск управляющих компаний</h1>
                     <p id='pold'></p>
                 </div>
@@ -76,7 +93,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 <div class="col-12" id="data_text">
 
                 </div>
-                <div class="col-12 table-wrapper">
+                <div class="col-12 table-wrapper" id="information">
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
@@ -87,12 +104,41 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                             </tr>
                         </thead>
                         <tbody id="table_content">
-                            
+
                         </tbody>
 
                     </table>
                 </div>
 
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>Избранное</h2>
+                    <p id='title12'></p>
+                </div>
+            </div>
+            <div class="row border my-3 card" id="features">
+                <div class="col-12 my-3 table-wrapper">
+                    <table id="" class="table table-striped table-earnings">
+                        <thead>
+                            <tr>
+                                <th scope="col" id="nameCompany">Название компании</th>
+                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="ratingComp">Рейтинг</th>
+                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_content_features">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12  d-flex justify-content-end">
+                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="outFeat();">
+                        <a href="#" class="nav-link"> Обновить </a>
+                      </button>
+                </div>
             </div>
 
             <!-- Модальное окно доп информации -->
@@ -105,7 +151,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                         </div>
                         <form action="#" method="#">
                             <div class="modal-body" id="infoForBody">
-                               
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -127,24 +173,97 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 </div>
             </footer>
 
-            
-            
             <script>
-                function getIdTr(){
-                    $('#table_content tr').click(function (event) {
-                    var id = $(this).attr('id');
-                    // var a = document.getElementById("pold");
-                    // a.innerHTML = id;
-                    $.post('/modal.php', {
+                var id = 1212;
+                $.post('/outputFeatures.php', {
+                    text: id
+                }, function(html) {
+                    document.getElementById("table_content_features").innerHTML = html;
+                });
+            </script>
+
+            <!--Вывод информации в модальное окно -->
+            <script>
+                function getIdTr() {
+                    $('#table_content tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        // var a = document.getElementById("pold");
+                        // a.innerHTML = id;
+                        $.post('/modal.php', {
+                            text: id
+                        }, function(html) {
+                            // $('#data_text').text('True: ' + data);
+                            document.getElementById("infoForBody").innerHTML = html;
+                            // $('#table_content > tbody').append(html);
+                        });
+                    });
+
+
+                }
+            </script>
+
+            <!--Добавление в израбнное-->
+            <script>
+                function getIdTrFeatures() {
+                    $('#table_content tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        // var d = document.getElementById("title12");
+                        // d.innerHTML = id;
+                        // var a = document.getElementById("pold");
+                        // a.innerHTML = id;
+                        $.post('/features.php', {
+                            text: id
+                        }, function(html) {});
+
+                    });
+                }
+            </script>
+
+            <script>
+                function getIdTrFeat() {
+                    $('#table_content_features tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        // var a = document.getElementById("pold");
+                        // a.innerHTML = id;
+                        $.post('/modal.php', {
+                            text: id
+                        }, function(html) {
+                            document.getElementById("infoForBody").innerHTML = html;
+                            // $('#data_text').text('True: ' + data);
+                            // $('#table_content > tbody').append(html);
+                        });
+                    });
+
+
+                }
+            </script>
+
+            <script>
+                function deleteFeatures() {
+                    $('#table_content_features tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        // var d = document.getElementById("title12");
+                        // d.innerHTML = id;
+                        // var a = document.getElementById("pold");
+                        // a.innerHTML = id;
+                        $.post('/deleteFeatures.php', {
+                            text: id
+                        }, function(html) {
+                            document.getElementById("title12").innerHTML = html;
+                        });
+
+                    });
+                }
+            </script>
+
+            <script>
+                function outFeat() {
+                    var id = 1212;
+                    $.post('/outputFeatures.php', {
                         text: id
                     }, function(html) {
-                        // $('#data_text').text('True: ' + data);
-                        document.getElementById("infoForBody").innerHTML = html;
-                        // $('#table_content > tbody').append(html);
+                        document.getElementById("table_content_features").innerHTML = html;
                     });
-                    });
-                   
-                    
                 }
             </script>
 

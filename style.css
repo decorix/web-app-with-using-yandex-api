@@ -69,16 +69,24 @@ body {
 } */
 
 #nameCompany {
-    width: 45%;
-    border: 1px solid black;
+    width: 50%;
+    /* border: 1px solid black; */
 }
 
 #point100 {
     width: 17%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #ratingComp {
     width: 17%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+}
+
+#log {
+    margin-left: auto;
+}
+
+#exit {
+    align-self: flex-end;
 }

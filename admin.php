@@ -63,14 +63,8 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
             </div>
             <div class="row my-5 border card">
                 <div class="col-5 mx-auto">
-                    <!-- <p id="text_title"></p>
-                     <form action="" method="post">
-                        <input class="w-100" type="text" id="text_title" name="text_title">
-                         button type="submit">Показать дополнительную информацию</button> 
-                    </form> -->
                     <p class='text-center fs-5' id="text_title"></p>
                     <p id="data_primer"></p>
-                    <!-- <p id="data_text"></p> -->
                 </div>
                 <div class="col-12" id="data_text">
 
@@ -79,9 +73,10 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
-                                <th scope="col">Название компании</th>
-                                <th scope="col">Количество домов в управлении</th>
-                                <th scope="col">Финальный рейтинг</th>
+                                <th scope="col" id="nameCompany">Название компании</th>
+                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="ratingComp">Рейтинг</th>
+                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -104,114 +99,14 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 </div>
             </footer>
 
-            <!-- Модальное окно авторизации -->
-            <div class="modal fade" id="auth" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Авторизация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="checkAuth.php" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="authLogin" class="form-label">Логин</label>
-                                    <input type="text" class="form-control mx-3" id="authLogin" name="authLogin" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="authPassword" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control mx-3" id="authPassword" name="authPassword" />
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Войти</button>
-                                <!-- $sql='INSERT INTO `company` (`name`, `type`, `address`) VALUES ('.$_POST['titleOrg'].', '.$_POST['typeObject'].', '.$_POST['address'].');';
-                            mysqli_query($mysql, $sql); -->
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Модальное окно авторизации -->
-
-            <!-- Модальное окно регистрации -->
-            <div class="modal fade" id="registr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Регистрация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="checkReg.php" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="regLogin" class="form-label">Логин</label>
-                                    <input type="text" class="form-control mx-3" id="regLogin" name="regLogin" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="regPassword" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control mx-3" id="regPassword" name="regPassword" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="regAgainPassword" class="form-label">Введите еще раз пароль</label>
-                                    <input type="password" class="form-control mx-3" id="regAgainPassword" name="regAgainPassword" />
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-                                <!-- $sql='INSERT INTO `company` (`name`, `type`, `address`) VALUES ('.$_POST['titleOrg'].', '.$_POST['typeObject'].', '.$_POST['address'].');';
-                            mysqli_query($mysql, $sql); -->
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Модальное окно регистрации -->
-
-
             <script>
                 function data(title) {
-                    // var a = document.getElementById("data_primer");
-                    // a.innerHTML = title;
-                    // let dataDB= {
-                    //     "name": title
-                    // };
-                    // let jsonStr = JSON.stringify(dataDB);
-                    // $.ajax({
-                    //     url: 'data.php',
-                    //     type: 'POST',
-                    //     dataType: 'html',
-                    //     data: {"dataQuery": jsonStr},
-                    //     success: function(data){
-                    //         $('#data_text').text('True: ' + JSON.stringify(name));
-                    //     }
-                    // })  
-
                     let name = title;
                     $.post('/data.php', {
                         text: name
                     }, function(html) {
-                        // $('#data_text').text('True: ' + data);
                         document.getElementById("table_content").innerHTML = html;
-                        // $('#table_content > tbody').append(html);
-                    });
-
-
-                    // $.ajax({
-                    //     url: 'data.php',
-                    //     type: 'POST',
-                    //     dataType: 'text',
-                    //     data: 'param=' + name,
-                    //     success: function(data){
-                    //         $('#data_text').text('True: ' + JSON.stringify(name));
-                    //     }
-                    // })                    
+                    });                 
                 }
             </script>
     </body>
