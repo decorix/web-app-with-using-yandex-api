@@ -9,11 +9,10 @@ $result2 = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=ful
                             echo '<td>' .$res['name'] . '</td>';
                             echo '<td>' .$res['TotalAmountOfScores'] . '</td>';
                             echo '<td>' .$res['FinalRating']. '</td>';
-                            echo '<td class="d-flex justify-content-end">
-                            <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="getIdTr();">
-                                <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#dopInfo"> Информация </a>
-                              </button>
+                            echo '<td class="d-flex justify-content-center">
+                            <a href="#" class="nav-link mx-2" data-bs-toggle="modal" data-bs-target="#dopInfo" onclick="getIdTr();"><img src="img/info.png" alt="info" width="30px" height="30px"></a>
                             <a href="user.php" class="nav-link" onclick="getIdTrFeatures();"><img src="img/favourites.png" alt="favourites" width="30px" height="30px"></a>
+                            <a href="#" class="nav-link mx-2" data-bs-toggle="modal" data-bs-target="#feedbackModal" onclick="getIdRegOrg();"><img src="img/message.png" alt="message" width="30px" height="30px"></a>
                             </td>';
                             // echo '<td>' .$res['address'] . '</td>';
                             // echo '<td>' .$res['HousesQuantity'] . '</td>';

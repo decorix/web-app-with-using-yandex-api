@@ -16,8 +16,13 @@ body {
     height: 90%;
 }
 
-.header {
+
+/* .header {
     padding: 5px;
+} */
+
+#idRegOrg {
+    width: 80px;
 }
 
 footer {
@@ -83,10 +88,30 @@ body {
     /* border: 1px solid black; */
 }
 
+
+/* 
 #log {
-    margin-left: auto;
+    margin-right: 10px;
 }
 
 #exit {
     align-self: flex-end;
+} */
+
+
+/* Admin.php Таблица "Модерация отзывов" */
+
+#nameUser {
+    width: 20%;
+    /* border: 1px solid black; */
+}
+
+#textFeedback {
+    width: 30%;
+    /* border: 1px solid black; */
+}
+
+#nameOrganization {
+    width: 30%;
+    /* border: 1px solid black; */
 }

@@ -10,11 +10,9 @@ $result8 = mysqli_query($mysql, "SELECT * FROM dataset JOIN features ON name=nam
                             echo '<td>' .$res['name'] . '</td>';
                             echo '<td>' .$res['TotalAmountOfScores'] . '</td>';
                             echo '<td>' .$res['FinalRating']. '</td>';
-                            echo '<td class="d-flex justify-content-end">
-                            <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="getIdTrFeat();">
-                                <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#dopInfo"> Информация </a>
-                              </button>
-                            <a href="#" class="nav-link" onclick="deleteFeatures();"><img src="img/delete.png" alt="favourites" width="30px" height="30px"></a>
+                            echo '<td class="d-flex justify-content-center">
+                            <a href="#" class="nav-link mx-2" data-bs-toggle="modal" data-bs-target="#dopInfo" onclick="getIdTrFeat();"><img src="img/info.png" alt="info" width="30px" height="30px"></a>
+                            <a href="#features" class="nav-link" onclick="deleteFeatures();"><img src="img/delete.png" alt="favourites" width="30px" height="30px"></a>
                             </td>';
                             // echo '<td>' .$res['address'] . '</td>';
                             // echo '<td>' .$res['HousesQuantity'] . '</td>';

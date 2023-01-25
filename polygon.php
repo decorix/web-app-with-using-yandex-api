@@ -26,33 +26,41 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="polygon.php">
-                    <img src="img/logo.png" alt="logo" width="60px" height="40px" />
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand" href="polygon.php">
+                        <img src="img/logo.png" alt="logo" width="60px" height="40px" />
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="polygon.html">Главная</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#titleMap">Карта</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-light" aria-current="page" href="#information">Информация</a>
                         </li>
                     </ul>
-                    <form class="form-inline position-absolute my-3 top-0 end-0">
+                    <!-- <div class="text-light border" id="headingText">
+                        <p class="fs-3">Поиск управляющих компаний по г. Москва</p>
+                    </div> -->
+                    <form class="d-flex">
+                        <button class="btn btn-outline-success my-2 my-sm-0 mx-2" type="submit">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#auth">Авторизация</a>
+                        </button>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#auth">Авторизация</a>
-            </button>
-
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#registr"> Регистрация </a>
-            </button>
-
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#registr"> Регистрация </a>
+                        </button>
                     </form>
                 </div>
             </div>
         </nav>
+
         <div class="container">
             <div class="row my-4">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center" id="titleMap">
                     <h1>Поиск управляющих компаний</h1>
                 </div>
             </div>
@@ -63,19 +71,13 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
             </div>
             <div class="row my-5 border card">
                 <div class="col-5 mx-auto">
-                    <!-- <p id="text_title"></p>
-                     <form action="" method="post">
-                        <input class="w-100" type="text" id="text_title" name="text_title">
-                         button type="submit">Показать дополнительную информацию</button> 
-                    </form> -->
                     <p class='text-center fs-5' id="text_title"></p>
                     <p id="data_primer"></p>
-                    <!-- <p id="data_text"></p> -->
                 </div>
                 <div class="col-12" id="data_text">
 
                 </div>
-                <div class="col-12 table-wrapper">
+                <div class="col-12 table-wrapper" id="information">
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
@@ -83,9 +85,6 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                                 <th scope="col" id="point100">Баллы (../100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
                                 <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
-                                <!-- <th scope="col">Адрес</th>
-                                <th scope="col">Количество домов в управлении</th>
-                                <th scope="col">Финальный рейтинг</th> -->
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -101,7 +100,10 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                 <div class="container-fluid">
                     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                         <li class="nav-item">
-                            <a href="polygon.php" class="nav-link px-2 text-light">Главная</a>
+                            <a class="nav-link px-2 text-light" aria-current="page" href="#titleMap">Карта</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-2 text-light" aria-current="page" href="#information">Информация</a>
                         </li>
                     </ul>
                     <p class="text-center text-light">@ by Evgeny Polyakov, 2023</p>
@@ -147,7 +149,6 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                                     <label for="authPassword" class="form-label">Пароль</label>
                                     <input type="password" class="form-control mx-3" id="authPassword" name="authPassword" />
                                 </div>
-
 
                             </div>
                             <div class="modal-footer">
