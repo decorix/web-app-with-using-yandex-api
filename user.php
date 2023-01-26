@@ -41,7 +41,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                             <a class="nav-link  text-light" aria-current="page" href="#titleMap">Карта</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-light" aria-current="page" href="#information">Информация</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#tableInfoUser">Информация</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  text-light" aria-current="page" href="#features">Избранное</a>
@@ -78,22 +78,25 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                     <div class="my-4" id="map"></div>
                 </div>
             </div>
-            <div class="row my-5 border card">
-                <div class="col-5 mx-auto">    
+            <div class="row my-5 border card" id="tableInfoUser">
+                <div class="col-12 text-center" id="data_text">
+                    <p class="fs-3">Информация о управляющих компаниях по г. Москва</p>
+                </div>
+                <div class="col-5 mx-auto">
                     <p class='text-center fs-5' id="text_title"></p>
                     <p id="data_primer"></p>
                 </div>
-                <div class="col-12" id="data_text">
-
-                </div>
+                
                 <div class="col-12 table-wrapper" id="information">
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
                                 <th scope="col" id="nameCompany">Название компании</th>
-                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="point100">Баллы (Макс. 100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col" id=""></th>
+                                <!-- <th scope="col" id=""></th>
+                                <th scope="col" id=""></th> -->
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -115,9 +118,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                         <thead>
                             <tr>
                                 <th scope="col" id="nameCompany">Название компании</th>
-                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="point100">Баллы (Макс. 100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col">Доп. функции</th>
                             </tr>
                         </thead>
                         <tbody id="table_content_features">
@@ -125,8 +128,8 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12  d-flex justify-content-end">
-                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="outFeat();">
+                <div class="col-12  d-flex justify-content-center" id="divButton">
+                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3 w-100" id="updateFeatures" type="submit" onclick="outFeat();">
                         <a href="#features" class="nav-link"> Обновить </a>
                       </button>
                 </div>
@@ -215,7 +218,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 function getIdTr() {
                     $('#table_content tr').click(function(event) {
                         var id = $(this).attr('id');
-                       
+
                         $.post('/modal.php', {
                             text: id
                         }, function(html) {
@@ -226,13 +229,20 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
 
                 }
             </script>
-            
+
             <!-- Для модального окна отзывов -->
             <script>
                 function getIdRegOrg() {
                     $('#table_content tr').click(function(event) {
-                        var id = $(this).attr('id');    
-                        document.querySelector('#idRegOrg').value=id;      
+                        var id = $(this).attr('id');
+                        document.querySelector('#idRegOrg').value = id;
+                    });
+                }
+
+                function getIdRegOrgFeat() {
+                    $('#table_content_features tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        document.querySelector('#idRegOrg').value = id;
                     });
                 }
             </script>
@@ -244,7 +254,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                         var id = $(this).attr('id');
                         $.post('/features.php', {
                             text: id
-                        }, function(html) {});
+                        }, setTimeout(function() {
+                            $('#updateFeatures').trigger('click');
+                        }, 1000));
 
                     });
                 }
@@ -254,12 +266,12 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 function getIdTrFeat() {
                     $('#table_content_features tr').click(function(event) {
                         var id = $(this).attr('id');
-                 
+
                         $.post('/modal.php', {
                             text: id
                         }, function(html) {
                             document.getElementById("infoForBody").innerHTML = html;
-                          
+
                         });
                     });
 
@@ -271,12 +283,12 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                 function deleteFeatures() {
                     $('#table_content_features tr').click(function(event) {
                         var id = $(this).attr('id');
-                       
+
                         $.post('/deleteFeatures.php', {
                             text: id
-                        }, function(html) {
-                            document.getElementById("title12").innerHTML = html;
-                        });
+                        }, setTimeout(function() {
+                            $('#updateFeatures').trigger('click');
+                        }, 1000));
 
                     });
                 }
@@ -300,7 +312,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                         text: name
                     }, function(html) {
                         document.getElementById("table_content").innerHTML = html;
-                    });                  
+                    });
                 }
             </script>
     </body>

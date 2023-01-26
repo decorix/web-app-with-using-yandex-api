@@ -2,11 +2,13 @@
 session_start();
 include 'connect_db.php';
 
-$login=$_SESSION['user']['login'];
-$message = $_POST['feedback'];
-$id_reg = $_POST['idRegOrg'];
+$id_reg = $_POST['text'];
+$sql2 = mysqli_query($mysql, "SELECT * FROM queueFeedback WHERE q_id_org=$id_reg");
+$res = mysqli_fetch_assoc($sql2);
+$message = $res['q_text'];
+$login = $res['q_login'];
 
-$sql = mysqli_query($mysql, "INSERT INTO queueFeedback (q_login, q_text, q_id_org) VALUES ('$login', '$message', $id_reg)");
+$sql = mysqli_query($mysql, "INSERT INTO feedback (login, text, id_org) VALUES ('$login', '$message', $id_reg)");
+$sql3 = mysqli_query($mysql, "DELETE queueFeedback FROM queueFeedback WHERE q_login='$login' AND q_id_org=$id_reg");
     header('Location: /admin.php');
-
 ?>

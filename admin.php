@@ -47,7 +47,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                             <a class="nav-link  text-light" aria-current="page" href="#features">Избранное</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-light" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#dopInfo">Избранное</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#">Модерация</a>
                         </li>
                     </ul>
                     <!-- <div class="text-light border" id="headingText">
@@ -92,9 +92,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                         <thead>
                             <tr>
                                 <th scope="col" id="nameCompany">Название компании</th>
-                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="point100">Баллы (Макс. 100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col" class=""></th>
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -117,9 +117,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                         <thead>
                             <tr>
                                 <th scope="col" id="nameCompany">Название компании</th>
-                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="point100">Баллы (Макс. 100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col" class=""></th>
                             </tr>
                         </thead>
                         <tbody id="table_content_features">
@@ -127,9 +127,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12  d-flex justify-content-end">
-                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="outFeat();">
-                        <a href="#features" class="nav-link"> Обновить </a>
+                <div class="col-12  d-flex justify-content-center" id="divButton">
+                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3 w-100" id="updateFeatures" type="submit" onclick="outFeat();">
+                        <a href="" class="nav-link"> Обновить </a>
                       </button>
                 </div>
             </div>
@@ -147,7 +147,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                                 <th scope="col" id="nameUser">Имя пользователя</th>
                                 <th scope="col" id="textFeedback">Текст отзыва</th>
                                 <th scope="col" id="nameOrganization">Название компании</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col" class=""></th>
                             </tr>
                         </thead>
                         <tbody id="table_content_feedback">
@@ -155,9 +155,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12  d-flex justify-content-end">
-                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" onclick="">
-                        <a href="#feedbackUpdate" class="nav-link"> Обновить </a>
+                <div class="col-12  d-flex justify-content-center" id="divButton">
+                    <button class="btn btn-outline-success my-2 my-sm-0 mx-3 w-100" id="updateFeedback" type="submit" onclick="updateTable();">
+                        <a href="" class="nav-link"> Обновить </a>
                       </button>
                 </div>
             </div>
@@ -243,6 +243,59 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 });
             </script>
 
+            
+
+            <script>
+                function outFeat() {
+                    var id = 1212;
+                    $.post('/outputFeatures.php', {
+                        text: id
+                    }, function(html) {
+                        document.getElementById("table_content_features").innerHTML = html;
+                    });
+                }
+            </script>
+
+            <script>
+                function updateTable() {
+                    var id = 1212;
+                    $.post('/checkFeedback.php', {
+                        text: id
+                    }, function(html) {
+                        document.getElementById("table_content_feedback").innerHTML = html;
+                    });
+                }
+            </script>
+
+            <!-- Успешная проверка отзыва -->
+            <script>
+                function trueCheckMessage(){
+                    $('#table_content_feedback tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        $.post('/trueFeedback.php', {
+                            text: id
+                        }, setTimeout(function() {
+                            $('#updateFeedback').trigger('click');
+                        }, 1000));
+
+                    });
+                }
+            </script>
+
+
+            <!-- Провальная проверка отзыва -->
+            <script>
+                function falseCheckMessage(){
+                    $('#table_content_feedback tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        $.post('/fallsFeedback.php', {
+                            text: id
+                        }, function(html) {});
+
+                    });
+                }
+            </script>
+
             <!--Вывод информации в модальное окно -->
             <script>
                 function getIdTr() {
@@ -268,8 +321,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 function getIdRegOrg() {
                     $('#table_content tr').click(function(event) {
                         var id = $(this).attr('id');
-                        // var a = document.getElementById("idRegOrg");
-                        // a.innerHTML = id;
+                        
                         document.querySelector('#idRegOrg').value=id;
                         
                     });
@@ -281,13 +333,12 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 function getIdTrFeatures() {
                     $('#table_content tr').click(function(event) {
                         var id = $(this).attr('id');
-                        // var d = document.getElementById("title12");
-                        // d.innerHTML = id;
-                        // var a = document.getElementById("pold");
-                        // a.innerHTML = id;
+                        
                         $.post('/features.php', {
                             text: id
-                        }, function(html) {});
+                        }, setTimeout(function() {
+                            $('#updateFeatures').trigger('click');
+                        }, 1000));
 
                     });
                 }
@@ -297,14 +348,12 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 function getIdTrFeat() {
                     $('#table_content_features tr').click(function(event) {
                         var id = $(this).attr('id');
-                        // var a = document.getElementById("pold");
-                        // a.innerHTML = id;
+                        
                         $.post('/modal.php', {
                             text: id
                         }, function(html) {
                             document.getElementById("infoForBody").innerHTML = html;
-                            // $('#data_text').text('True: ' + data);
-                            // $('#table_content > tbody').append(html);
+                          
                         });
                     });
 
@@ -316,15 +365,11 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 function deleteFeatures() {
                     $('#table_content_features tr').click(function(event) {
                         var id = $(this).attr('id');
-                        // var d = document.getElementById("title12");
-                        // d.innerHTML = id;
-                        // var a = document.getElementById("pold");
-                        // a.innerHTML = id;
                         $.post('/deleteFeatures.php', {
                             text: id
-                        }, function(html) {
-                            document.getElementById("title12").innerHTML = html;
-                        });
+                        }, setTimeout(function() {
+                            $('#updateFeatures').trigger('click');
+                        }, 1000));
 
                     });
                 }

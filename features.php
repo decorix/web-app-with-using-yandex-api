@@ -4,16 +4,22 @@ session_start();
 
 $id_reg = $_POST['text'];
 $login = $_SESSION['user']['login'];
-$result7 = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=fullName WHERE id_reg=$id_reg");
 
-                            while ($res = mysqli_fetch_assoc($result7)) {
-                                    $name = $res['name'];
-                                    $point = $res['TotalAmountOfScores'];
-                                    $rating = $res['FinalRating'];
+$result = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=fullName WHERE id_reg=$id_reg");
 
-                                    $result6 = mysqli_query($mysql, "INSERT INTO features (login, name_comp, point, rating) VALUES ('$login', '$name', $point, $rating)");
+$res = mysqli_fetch_assoc($result);
+$name = $res['name'];
+$point = $res['TotalAmountOfScores'];
+$rating = $res['FinalRating'];
 
-                                    header('Location: /user.php');
+$result2 = mysqli_query($mysql, "SELECT * FROM features WHERE login='$login' AND name_comp='$name'");
 
-                            }
+if (mysqli_num_rows($result2) == 0){
+    $result3 = mysqli_query($mysql, "INSERT INTO features (login, name_comp, point, rating) VALUES ('$login', '$name', $point, $rating)");
+}
+
+
+header('Location: /user.php');
+
+                            
 ?>

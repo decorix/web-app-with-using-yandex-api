@@ -40,7 +40,7 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                             <a class="nav-link  text-light" aria-current="page" href="#titleMap">Карта</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-light" aria-current="page" href="#information">Информация</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#tableInfoUser">Информация</a>
                         </li>
                     </ul>
                     <!-- <div class="text-light border" id="headingText">
@@ -69,7 +69,10 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                     <div class="my-4" id="map"></div>
                 </div>
             </div>
-            <div class="row my-5 border card">
+            <div class="row my-5 border card" id="tableInfoUser">
+                <div class="col-12 text-center" id="data_text">
+                    <p class="fs-3">Информация о управляющих компаниях по г. Москва</p>
+                </div>
                 <div class="col-5 mx-auto">
                     <p class='text-center fs-5' id="text_title"></p>
                     <p id="data_primer"></p>
@@ -82,9 +85,9 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                         <thead>
                             <tr>
                                 <th scope="col" id="nameCompany">Название компании</th>
-                                <th scope="col" id="point100">Баллы (../100)</th>
+                                <th scope="col" id="point100">Баллы (Макс. 100)</th>
                                 <th scope="col" id="ratingComp">Рейтинг</th>
-                                <th scope="col" class="d-flex justify-content-center">Доп. функции</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody id="table_content">
@@ -173,15 +176,15 @@ $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="regLogin" class="form-label">Логин</label>
-                                    <input type="text" class="form-control mx-3" id="regLogin" name="regLogin" />
+                                    <input type="email" class="form-control mx-3" id="regLogin" name="regLogin" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="regPassword" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control mx-3" id="regPassword" name="regPassword" />
+                                    <input type="password" class="form-control mx-3" id="regPassword" name="regPassword" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="regConfirmPassword" class="form-label">Подтверждение пароля</label>
-                                    <input type="password" class="form-control mx-3" id="regConfirmPassword" name="regConfirmPassword" />
+                                    <input type="password" class="form-control mx-3" id="regConfirmPassword" name="regConfirmPassword" required/>
                                     <? if ($_SESSION['message']){
                                         echo '<p>' .$_SESSION['message']. '</p>';
                                     }

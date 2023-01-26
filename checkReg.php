@@ -7,7 +7,7 @@ $login=$_POST['regLogin'];
 $password=$_POST['regPassword'];
 $passwordConfirm=$_POST['regConfirmPassword'];
 // $result3 = mysqli_query($mysql, 'SELECT login FROM `user` WHERE login!=$login');
-if ($password==$passwordConfirm){
+if (($password==$passwordConfirm) && $password!='' && strlen($password)>=8){
     $password = md5($password);
     mysqli_query($mysql, "INSERT INTO user (status, login, password) VALUES ('user', '$login', '$password')");
     include 'polygon.php';
