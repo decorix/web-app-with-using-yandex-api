@@ -194,7 +194,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
                             <a class="nav-link px-2 text-light" aria-current="page" href="#titleMap">Карта</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-2 text-light" aria-current="page" href="#information">Информация</a>
+                            <a class="nav-link px-2 text-light" aria-current="page" href="#tableInfoUser">Информация</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link px-2 text-light" aria-current="page" href="#features">Избранное</a>

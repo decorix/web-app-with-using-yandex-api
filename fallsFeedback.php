@@ -8,6 +8,6 @@ $res = mysqli_fetch_assoc($sql2);
 $message = $res['q_text'];
 $login = $res['q_login'];
 
-$sql3 = mysqli_query($mysql, "DELETE queueFeedback FROM queueFeedback WHERE q_login=$login AND q_id_org=$id_reg");
+$sql3 = mysqli_query($mysql, "DELETE queueFeedback FROM queueFeedback WHERE q_login='$login' AND q_id_org=$id_reg");
     header('Location: /admin.php');
 ?>

@@ -33,7 +33,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 <span class="navbar-toggler-icon"></span>
               </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="user.php">
+                    <a class="navbar-brand" href="admin.php">
                         <img src="img/logo.png" alt="logo" width="60px" height="40px" />
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -41,13 +41,13 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                             <a class="nav-link  text-light" aria-current="page" href="#titleMap">Карта</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-light" aria-current="page" href="#information">Информация</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#tableInfoUser">Информация</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  text-light" aria-current="page" href="#features">Избранное</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-light" aria-current="page" href="#">Модерация</a>
+                            <a class="nav-link  text-light" aria-current="page" href="#moderation">Модерация</a>
                         </li>
                     </ul>
                     <!-- <div class="text-light border" id="headingText">
@@ -70,7 +70,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
         
         <div class="container">
             <div class="row my-4">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center" id="titleMap">
                     <h1>Поиск управляющих компаний</h1>
                 </div>
             </div>
@@ -79,7 +79,10 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                     <div class="my-4" id="map"></div>
                 </div>
             </div>
-            <div class="row my-5 border card">
+            <div class="row my-5 border card" id="tableInfoUser">
+                <div class="col-12 text-center" id="data_text">
+                    <p class="fs-3">Информация о управляющих компаниях по г. Москва</p>
+                </div>
                 <div class="col-5 mx-auto">
                     <p class='text-center fs-5' id="text_title"></p>
                     <p id="data_primer"></p>
@@ -105,14 +108,12 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                     </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2>Избранное</h2>
-                    <p id='title12'></p>
-                </div>
-            </div>
+            
             <div class="row border my-3 card" id="features">
-                <div class="col-12 my-3 table-wrapper">
+                <div class="col-12 text-center" id="data_text">
+                    <p class="fs-3">Избранное</p>
+                </div>
+                <div class="col-12 my-3 table-wrapper" id="features">
                     <table id="" class="table table-striped table-earnings">
                         <thead>
                             <tr>
@@ -129,17 +130,15 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 </div>
                 <div class="col-12  d-flex justify-content-center" id="divButton">
                     <button class="btn btn-outline-success my-2 my-sm-0 mx-3 w-100" id="updateFeatures" type="submit" onclick="outFeat();">
-                        <a href="" class="nav-link"> Обновить </a>
+                        <a class="nav-link"> Обновить </a>
                       </button>
                 </div>
             </div>
             
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2>Модерация отзывов</h2>
+            <div class="row border my-5 card" id="moderation">
+                <div class="col-12 text-center" id="data_text">
+                    <p class="fs-3">Модерация отзывов</p>
                 </div>
-            </div>
-            <div class="row border my-3 card" id="features">
                 <div class="col-12 my-3 table-wrapper">
                     <table id="" class="table table-striped table-earnings">
                         <thead>
@@ -157,7 +156,7 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 </div>
                 <div class="col-12  d-flex justify-content-center" id="divButton">
                     <button class="btn btn-outline-success my-2 my-sm-0 mx-3 w-100" id="updateFeedback" type="submit" onclick="updateTable();">
-                        <a href="" class="nav-link"> Обновить </a>
+                        <a class="nav-link"> Обновить </a>
                       </button>
                 </div>
             </div>
@@ -169,7 +168,16 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 <div class="container-fluid">
                     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                         <li class="nav-item">
-                            <a href="admin.php" class="nav-link px-2 text-light">Главная</a>
+                            <a href="#titleMap" class="nav-link px-2 text-light">Карта</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#tableInfoUser" class="nav-link px-2 text-light">Информация</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#features" class="nav-link px-2 text-light">Избранное</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#moderation" class="nav-link px-2 text-light">Модерация</a>
                         </li>
                     </ul>
                     <p class="text-center text-light">@ by Evgeny Polyakov, 2023</p>
@@ -243,6 +251,21 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                 });
             </script>
 
+            <script>
+                function getIdRegOrg() {
+                    $('#table_content tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        document.querySelector('#idRegOrg').value = id;
+                    });
+                }
+
+                function getIdRegOrgFeat() {
+                    $('#table_content_features tr').click(function(event) {
+                        var id = $(this).attr('id');
+                        document.querySelector('#idRegOrg').value = id;
+                    });
+                }
+            </script>
             
 
             <script>
@@ -290,7 +313,9 @@ if ($_SESSION['user'] && $_SESSION['user']['status'] == 'user') {
                         var id = $(this).attr('id');
                         $.post('/fallsFeedback.php', {
                             text: id
-                        }, function(html) {});
+                        }, setTimeout(function() {
+                            $('#updateFeedback').trigger('click');
+                        }, 1000));
 
                     });
                 }
