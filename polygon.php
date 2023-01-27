@@ -1,9 +1,9 @@
 <?php
-include 'connect_db.php';
-include 'data.php';
-session_start();
+// session_start();
+// include 'connect_db.php';
+// include 'data.php';
 
-$result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
+// $result = mysqli_query($mysql, 'SELECT * FROM `dataset`');
 ?>
 
     <!DOCTYPE html>

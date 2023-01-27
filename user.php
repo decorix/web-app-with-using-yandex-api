@@ -1,7 +1,8 @@
 <?php
-include 'connect_db.php';
-include 'data.php';
 session_start();
+require_once('connect_db.php');
+// include 'connect_db.php';
+// include 'data.php';
 if ($_SESSION['user'] && $_SESSION['user']['status'] == 'admin') {
     header('Location: /admin.php');
 }

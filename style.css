@@ -4,6 +4,14 @@
     border-bottom: 1px solid rgb(218, 215, 215);
 }
 
+#footerIndex {
+    border-bottom: 1px solid rgb(218, 215, 215);
+}
+
+#footLink {
+    color: rgb(219, 213, 204);
+}
+
 #titleIndex {
     margin-top: 5%;
     color: rgb(219, 213, 204);

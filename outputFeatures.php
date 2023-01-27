@@ -1,6 +1,7 @@
 <?php
-include 'connect_db.php';
+// include 'connect_db.php';
 session_start();
+require_once('connect_db.php');
 
 $id = $_POST['text'];
 $login = $_SESSION['user']['login'];

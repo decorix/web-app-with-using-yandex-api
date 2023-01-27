@@ -1,6 +1,8 @@
 <?php
-include 'connect_db.php';
+// include 'connect_db.php';
 session_start();
+require_once('connect_db.php');
+
 $id_reg = $_POST['text'];
 $result4 = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=fullName WHERE id_reg=$id_reg");
 $result5 = mysqli_query($mysql, "SELECT text FROM dataset JOIN dataset4 ON name=fullName JOIN feedback ON id_reg=id_org WHERE id_reg=$id_reg");

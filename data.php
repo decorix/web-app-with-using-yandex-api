@@ -1,10 +1,11 @@
 <?php
-include 'connect_db.php';
 session_start();
+// include 'connect_db.php';
+require_once('connect_db.php');
 
-$name = $_POST['text'];
+$name = @$_POST['text'];
 $result2 = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=fullName WHERE admArea='$name' ORDER BY FinalRating ASC");
-if ($_SESSION['user']['status']!=''){
+if (@$_SESSION['user']['status']!=''){
     while ($res = mysqli_fetch_assoc($result2)) {
         echo '<tr id="'.$res['id_reg'].'">';
         echo '<td>' .$res['name'] . '</td>';
