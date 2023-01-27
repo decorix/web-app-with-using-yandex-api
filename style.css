@@ -1,3 +1,27 @@
+/* Index.php */
+
+#navbarIndex {
+    border-bottom: 1px solid rgb(218, 215, 215);
+}
+
+#titleIndex {
+    margin-top: 5%;
+    color: rgb(219, 213, 204);
+}
+
+#propertyIndex {
+    color: wheat;
+}
+
+#descriptionIndex {
+    padding-left: 345px;
+    padding-right: 345px;
+}
+
+#nextWork {
+    color: white;
+}
+
 .k12 {
     height: 500px;
 }

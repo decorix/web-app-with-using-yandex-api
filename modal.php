@@ -6,11 +6,11 @@ $result4 = mysqli_query($mysql, "SELECT * FROM dataset JOIN dataset4 ON name=ful
 $result5 = mysqli_query($mysql, "SELECT text FROM dataset JOIN dataset4 ON name=fullName JOIN feedback ON id_reg=id_org WHERE id_reg=$id_reg");
                             $res = mysqli_fetch_assoc($result4);
                             echo '<div class="form-group">';
-                            echo '<label for="modalAddress" class="form-label"><b>Адресс</b></label>';
+                            echo '<label for="modalAddress" class="form-label"><b>Адрес</b></label>';
                             echo '<p id="modalAddress">' . $res['address'] . '</p>';
                             echo '</div>';
                             echo '<div class="form-group">';
-                            echo '<label for="modalRating" class="form-label"><b>Площадь домов в управлении</b></label>';
+                            echo '<label for="modalRating" class="form-label"><b>Площадь домов в управлении (м^2)</b></label>';
                             echo '<p id="modalRating">'.$res['HousesArea'].'</p>';
                             echo '</div>';
                             echo '<div class="form-group">';
